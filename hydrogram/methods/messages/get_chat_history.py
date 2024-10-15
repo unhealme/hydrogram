@@ -63,7 +63,7 @@ class GetChatHistory:
         offset: int = 0,
         offset_id: int = 0,
         offset_date: datetime = utils.zero_datetime(),
-    ) -> AsyncGenerator[types.Message, None] | None:
+    ) -> AsyncGenerator[types.Message, None]:
         """Get messages from a chat history.
 
         The messages are returned in reverse chronological order.
@@ -114,7 +114,7 @@ class GetChatHistory:
             )
 
             if not messages:
-                return
+                break
 
             offset_id = messages[-1].id
 
