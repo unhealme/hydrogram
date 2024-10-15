@@ -20,12 +20,17 @@
 from __future__ import annotations
 
 from inspect import iscoroutinefunction
-from typing import Callable
+from typing import TYPE_CHECKING, Any
 
 import hydrogram
 from hydrogram.types import Identifier, Listener, ListenerTypes, Message
 
 from .handler import Handler
+
+if TYPE_CHECKING:
+    from collections.abc import Awaitable, Callable
+
+    from hydrogram.filters import Filter
 
 
 class MessageHandler(Handler):
@@ -52,7 +57,11 @@ class MessageHandler(Handler):
             The received message.
     """
 
-    def __init__(self, callback: Callable, filters=None):
+    def __init__(
+        self,
+        callback: Callable[[hydrogram.Client, Message], Awaitable[Any]],
+        filters: Filter | None = None,
+    ):
         self.original_callback = callback
         super().__init__(self.resolve_future_or_callback, filters)
 
