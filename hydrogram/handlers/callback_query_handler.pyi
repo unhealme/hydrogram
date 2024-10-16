@@ -20,20 +20,22 @@
 from typing import Any
 
 from hydrogram import Client
-from hydrogram.types import Listener, Message
+from hydrogram.types import CallbackQuery, Identifier, Listener
 
 from .handler import Handler
 
-class MessageHandler(Handler[Message]):
+class CallbackQueryHandler(Handler[CallbackQuery]):
     @staticmethod
+    def compose_data_identifier(query: CallbackQuery) -> Identifier: ...
     async def check_if_has_matching_listener(
+        self,
         client: Client,
-        message: Message,
+        query: CallbackQuery,
     ) -> tuple[bool, Listener | None]: ...
-    async def check(self, client: Client, message: Message) -> bool: ...
+    async def check(self, client: Client, query: CallbackQuery) -> bool: ...
     async def resolve_future_or_callback(
         self,
         client: Client,
-        message: Message,
+        query: CallbackQuery,
         *args: Any,
     ) -> None: ...

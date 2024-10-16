@@ -1,5 +1,4 @@
 #  Hydrogram - Telegram MTProto API Client Library for Python
-#  Copyright (C) 2017-2023 Dan <https://github.com/delivrance>
 #  Copyright (C) 2023-present Hydrogram <https://hydrogram.org>
 #
 #  This file is part of Hydrogram.
@@ -17,23 +16,19 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Hydrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from typing import Any
+from __future__ import annotations
+
+from collections.abc import Iterable
 
 from hydrogram import Client
-from hydrogram.types import Listener, Message
 
-from .handler import Handler
+from .handler import Callback, Handler
 
-class MessageHandler(Handler[Message]):
-    @staticmethod
-    async def check_if_has_matching_listener(
-        client: Client,
-        message: Message,
-    ) -> tuple[bool, Listener | None]: ...
-    async def check(self, client: Client, message: Message) -> bool: ...
-    async def resolve_future_or_callback(
+class ErrorHandler(Handler):
+    def __init__(
         self,
-        client: Client,
-        message: Message,
-        *args: Any,
+        callback: Callback[Exception],
+        errors: type[Exception] | Iterable[type[Exception]] | None = None,
     ) -> None: ...
+    async def check(self, client: Client, error: Exception) -> bool: ...
+    def check_remove(self, error: Exception) -> bool: ...

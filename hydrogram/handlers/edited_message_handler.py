@@ -17,34 +17,9 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Hydrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from typing import Callable
+from hydrogram.types import Message
 
 from .handler import Handler
 
 
-class EditedMessageHandler(Handler):
-    """The EditedMessage handler class. Used to handle edited messages.
-     It is intended to be used with :meth:`~hydrogram.Client.add_handler`
-
-    For a nicer way to register this handler, have a look at the
-    :meth:`~hydrogram.Client.on_edited_message` decorator.
-
-    Parameters:
-        callback (``Callable``):
-            Pass a function that will be called when a new edited message arrives. It takes *(client, message)*
-            as positional arguments (look at the section below for a detailed description).
-
-        filters (:obj:`Filters`):
-            Pass one or more filters to allow only a subset of messages to be passed
-            in your callback function.
-
-    Other parameters:
-        client (:obj:`~hydrogram.Client`):
-            The Client itself, useful when you want to call other API methods inside the message handler.
-
-        edited_message (:obj:`~hydrogram.types.Message`):
-            The received edited message.
-    """
-
-    def __init__(self, callback: Callable, filters=None):
-        super().__init__(callback, filters)
+class EditedMessageHandler(Handler[Message]): ...

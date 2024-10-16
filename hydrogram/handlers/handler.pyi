@@ -17,23 +17,15 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Hydrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+from collections.abc import Awaitable, Callable
 from typing import Any
 
 from hydrogram import Client
-from hydrogram.types import Listener, Message
+from hydrogram.filters import Filter
+from hydrogram.types import Update
 
-from .handler import Handler
+type Callback[T] = Callable[[Client, T], Awaitable[Any]]
 
-class MessageHandler(Handler[Message]):
-    @staticmethod
-    async def check_if_has_matching_listener(
-        client: Client,
-        message: Message,
-    ) -> tuple[bool, Listener | None]: ...
-    async def check(self, client: Client, message: Message) -> bool: ...
-    async def resolve_future_or_callback(
-        self,
-        client: Client,
-        message: Message,
-        *args: Any,
-    ) -> None: ...
+class Handler[T]:
+    def __init__(self, callback: Callback[T], filters: Filter | None = None) -> None: ...
+    async def check(self, client: Client, update: Update) -> bool: ...
