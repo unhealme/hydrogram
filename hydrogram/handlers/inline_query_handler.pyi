@@ -17,8 +17,9 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Hydrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+from hydrogram import Client
 from hydrogram.types import InlineQuery
 
 from .handler import Handler
 
-class InlineQueryHandler(Handler[InlineQuery]): ...
+class InlineQueryHandler(Handler[Client, InlineQuery]): ...

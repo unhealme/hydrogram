@@ -17,25 +17,17 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Hydrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from collections.abc import Awaitable, Callable
-from typing import Any
-
 from hydrogram import Client
 from hydrogram.raw.types import Channel
 from hydrogram.types import Chat, Update, User
 
 from .handler import Handler
 
-class RawUpdateHandler(Handler):
-    def __init__(
-        self,
-        callback: Callable[
-            [
-                Client,
-                Update,
-                dict[int, User],
-                dict[int, Chat | Channel],
-            ],
-            Awaitable[Any],
-        ],
-    ) -> None: ...
+class RawUpdateHandler(
+    Handler[
+        Client,
+        Update,
+        dict[int, User],
+        dict[int, Chat | Channel],
+    ]
+): ...

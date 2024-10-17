@@ -24,7 +24,7 @@ from hydrogram.types import Listener, Message
 
 from .handler import Handler
 
-class MessageHandler(Handler[Message]):
+class MessageHandler(Handler[Client, Message]):
     @staticmethod
     async def check_if_has_matching_listener(
         client: Client,

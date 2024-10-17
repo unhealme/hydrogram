@@ -24,7 +24,7 @@ from hydrogram.types import CallbackQuery, Identifier, Listener
 
 from .handler import Handler
 
-class CallbackQueryHandler(Handler[CallbackQuery]):
+class CallbackQueryHandler(Handler[Client, CallbackQuery]):
     @staticmethod
     def compose_data_identifier(query: CallbackQuery) -> Identifier: ...
     async def check_if_has_matching_listener(

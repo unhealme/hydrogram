@@ -17,9 +17,9 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Hydrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+from hydrogram import Client
 from hydrogram.types import Message
 
 from .handler import Handler
 
-
-class EditedMessageHandler(Handler[Message]): ...
+class EditedMessageHandler(Handler[Client, Message]): ...

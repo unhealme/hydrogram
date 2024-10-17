@@ -16,18 +16,17 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Hydrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
-
 from collections.abc import Iterable
 
 from hydrogram import Client
+from hydrogram.types import Update
 
 from .handler import Callback, Handler
 
 class ErrorHandler(Handler):
     def __init__(
         self,
-        callback: Callback[Exception],
+        callback: Callback[Client, Exception, Update],
         errors: type[Exception] | Iterable[type[Exception]] | None = None,
     ) -> None: ...
     async def check(self, client: Client, error: Exception) -> bool: ...

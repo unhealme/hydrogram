@@ -22,5 +22,5 @@ from hydrogram.types import Message
 
 from .handler import Handler
 
-class DeletedMessagesHandler(Handler[Message]):
+class DeletedMessagesHandler(Handler[Client, list[Message]]):
     async def check(self, client: Client, messages: list[Message]) -> bool: ...

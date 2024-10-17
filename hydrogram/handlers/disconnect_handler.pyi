@@ -17,12 +17,8 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Hydrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from collections.abc import Awaitable, Callable
-from typing import Any
-
 from hydrogram import Client
 
 from .handler import Handler
 
-class DisconnectHandler(Handler):
-    def __init__(self, callback: Callable[[Client], Awaitable[Any]]) -> None: ...
+class DisconnectHandler(Handler[Client]): ...

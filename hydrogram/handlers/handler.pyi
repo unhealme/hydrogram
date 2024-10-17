@@ -24,8 +24,8 @@ from hydrogram import Client
 from hydrogram.filters import Filter
 from hydrogram.types import Update
 
-type Callback[T] = Callable[[Client, T], Awaitable[Any]]
+type Callback[*T] = Callable[[*T], Awaitable[Any]]
 
-class Handler[T]:
-    def __init__(self, callback: Callback[T], filters: Filter | None = None) -> None: ...
+class Handler[*T]:
+    def __init__(self, callback: Callback[*T], filters: Filter | None = None) -> None: ...
     async def check(self, client: Client, update: Update) -> bool: ...
